@@ -29,7 +29,9 @@ nodes=${nodes%,}  # delete the last ,
 docker ps | grep jmeter-worker-
 
 echo "jmeter master command:"
-echo "   bin/jmeter -Jserver.rmi.ssl.disable=true -n -t project/csv_test.jmx -l result.txt -f -e -o report_dir -R $nodes"
+echo "   bash $JMETER_DIR/start.sh"
+echo "   \$JMETER_DIR/bin/jmeter -Jserver.rmi.ssl.disable=true -n -t \$JMX_DIR/csv_test.jmx -l result.txt -f -e -o report_dir -R $nodes"
+echo ""
 
 docker run -it --rm \
     -l jmeter \
