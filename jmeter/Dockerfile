@@ -52,4 +52,4 @@ RUN wget https://github.com/GodQ/go-rest-agent/releases/download/1.0.1/agent_lin
 COPY start.sh $JMETER_DIR
 
 # Default command
-CMD ["bash", "$JMETER_DIR/start.sh"]
+CMD bash $JMETER_DIR/start.sh
