@@ -1,0 +1,20 @@
+name: Docker Image CI
+
+env:
+  VERSION: 5.6.2
+  IMAGE_NAME: ${{ secrets.DOCKER_HUB_USER }}/jmeter
+
+on:
+  workflow_dispatch: 
+  push:
+    branches: 
+      - 'master'
+      - 'releases/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build and push the Docker image
+      run: cd jmeter && docker build . --file Dockerfile -t $IMAGE_NAME:$VERSION && docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_PASSWORD }} && docker push $IMAGE_NAME:$VERSION
