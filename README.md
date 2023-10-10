@@ -23,7 +23,44 @@ Master node will run a go-rest-agent service to act as a rest server.
 
 ## Instructions
 
-### Agent http requests:
+### Jmeter project
+
+A full jmeter test project should include two folders:
+
+- jmeter folder, include all the jmx files and csv files, it is required.
+
+- lib folder, include all the customized plugin jar files, it is optional. 
+
+### Required env settings for containers
+
+#### Worker node
+
+Worker node should set the env variables following:
+
+```
+        -e ROLE=worker \
+        -v $local_jmeter_src:$project_dir \
+        -e PROJECT_DIR=$project_dir \
+        -e JMX_DIR=jmx \
+        -e LIB_EXT_DIR=lib \
+```
+The default value:
+
+|env|default value| description|
+|---|---|---|
+|JMETER_DIR |/jmeter |jmeter bin folder|
+|PROJECT_DIR   |/project   |jmeter project folder|
+|JMX_DIR |jmx | jmx relative folder in PROJECT_DIR |
+|LIB_EXT_DIR |lib | lib ext relative folder in PROJECT_DIR |
+|ROLE |worker | should in [worker, master]|
+
+#### Master node
+
+Master node should set the env variables as the worker node, but "ROLE" should be set "master".
+
+
+
+### Agent http requests
 
 1. create task:
 
